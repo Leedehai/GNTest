@@ -11,8 +11,16 @@ rm -rf out
 printf "\033[32;1;m$ utils/buildtools/gn.py gen out/Default\033[0;m\n"
 utils/buildtools/gn.py gen out/Default
 
+if [ $? != 0 ]; then
+	exit 1
+fi
+
 printf "\033[32;1;m$ utils/buildtools/ninja.py -C out/Default -v # verbose \033[0;m\n"
 utils/buildtools/ninja.py -C out/Default -v
+
+if [ $? != 0 ]; then
+	exit 1
+fi
 
 if [ -f out/Default/hello ]; then
 	printf "\n"

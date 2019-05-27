@@ -1,15 +1,42 @@
-#!/usr/bin/env python
-# Copyright: see README and LICENSE under the project root directory.
-# Author: @Leedehai
-#
-# File: BUILD.gn
-# ---------------------------
-# Basic config blocks.
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
 
-config("binary_defaults") {
-  # TODO
+# Declare build args and their default values. Default values can be overriden by:
+# 1. default_args() in project's .gn file
+# 2. the args.gn file.
+# 3. the '--args' option (highest precedence)
+declare_args() {
+  is_debug = true
 }
 
-config("executable_ld_config") {
-  # TODO
+# To be used by BUILDCONFIG.gn
+config("compiler_defaults") {
+    cflags = [
+      "-fPIC",
+      "-pthread",
+      "-Wall",
+      "-pedantic",
+    ]
+    if (!is_debug) {
+      cflags += [
+        "-DNDEBUG"
+      ]
+    }
+    cflags_c = [
+      "-std=c11",
+    ]
+    cflags_cc = [
+      "-std=c++14"
+    ]
+    include_dirs = [ "//include" ]
+}
+
+# To be used by BUILDCONFIG.gn
+config("executable_config") {
+  if (is_linux) {
+    ldflags = [
+      "-Wl,-rpath,\$ORIGIN/$runtime_dir",
+    ]
+  }
 }

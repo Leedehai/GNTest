@@ -1,2 +1,24 @@
+# About .gn
+#
+# When GN starts, it will search the current directory and parent directories
+# for a file called ".gn". This indicates the source root, unless overriden by
+# the '--root' option.
+# If you specify --root, by default GN will look for the file .gn in that
+# directory. If you want your .gn to be found at a different path, you can
+# additionally use the '--dotfile' option. Example:
+#   gn gen out/Debug --root=/home/build --dotfile=/home/my_gn_file.gn
+#
+# What variables can be set in a .gn file:
+#   https://gn.googlesource.com/gn/+/master/docs/reference.md#other-help-topics-gn-file-variables
+
 # The location of the build configuration file.
-buildconfig = "//build/BUILDCONFIG.gn"
+buildconfig = "//utils/buildtools/configs/BUILDCONFIG.gn"
+
+# These overrides take precedence over the default values specified in
+# declare_args() blocks, but can be overriden by:
+# 1. the args.gn file.
+# 2. the '--args' option (highest precedence)
+default_args = {
+    # Default to debug builds for this project.
+    is_debug = true
+}
