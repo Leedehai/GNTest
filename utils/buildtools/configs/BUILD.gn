@@ -7,7 +7,7 @@
 # 2. the args.gn file.
 # 3. the '--args' option (highest precedence)
 declare_args() {
-  is_debug = true
+  is_release = false
 }
 
 # To be used by BUILDCONFIG.gn
@@ -18,7 +18,7 @@ config("compiler_defaults") {
       "-Wall",
       "-pedantic",
     ]
-    if (!is_debug) {
+    if (is_release) {
       cflags += [
         "-DNDEBUG"
       ]

@@ -6,8 +6,10 @@ Tested on Mac and Linux, x64.
 
 Execute:
 ```sh
-./run.sh # expect three "Hello world" printed.
+./run.sh
+./run.sh -i # incremental re-build (try modifying some files)
 ```
+If everything runs fine, three `Hello world` will be printed, followed by a tree graph of files.
 
 ### Prerequisites
 - macOS or Linux

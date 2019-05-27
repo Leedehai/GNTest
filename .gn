@@ -20,5 +20,5 @@ buildconfig = "//utils/buildtools/configs/BUILDCONFIG.gn"
 # 2. the '--args' option (highest precedence)
 default_args = {
     # Default to debug builds for this project.
-    is_debug = true
+    is_release = false
 }

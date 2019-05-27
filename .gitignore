@@ -1,5 +1,7 @@
 hello-test-directly-compiled
 out
+auto.py
+copy-auto.sh
 *.dSYM
 *.o
 *.d
