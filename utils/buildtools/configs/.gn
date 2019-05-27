@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+# Copyright: see README and LICENSE under the project root directory.
+# Author: @Leedehai
+#
+# File: .gn
+# ---------------------------
+# The dotfile required by GN, containing setup-specific information.
+#
+# Normally, GN uses the directory of the dotfile as the root of a project; this
+# project, however, overrides the behavior by passing to the GN command (at the
+# root) with two added options "--root=. --dotfile=utils/buildtools/configs/.gn".
+
+buildconfig = "//utils/buildtools/configs/BUILDCONFIG.gn"
+
+# A list of GN files (not labels) that have permission to call the exec_script()
+# function. We should be very conservative about whitelisting things here.
+# NOTE When referring to files in the secondary_source tree (if defined),
+# the secondary tree should be ignored and refer to them as if they are in
+# the main tree.
+exec_script_whitelist = []
+
+# An alternate directory tree to find input GN files. When searching for a
+# BUILD.gn file, the file will first be looked for in the source root. If
+# it is not found, the secondary source root will be checked, for example:
+# //arc/BUILD.gn needed but missing => use //[secondary_source]/arc/BUILD.gn
+secondary_source = "utils/buildtools/configs"
+
+# These default args override the default values specified in the declare_args()
+# block, but can be overriden using --args or the args.gn file.
+# The default args defined here are intended for a release build.
+default_args = {
+    # If true, assert() will be effective.
+    is_assert_on = false
+
+    # If true, debugging symbols will be preserved in the binary. This can be
+    # checked by `objdump --syms path/to/binary` on Linux.
+    is_symbols_preserved = false
+
+    # If true, compiler optimization will be on.
+    is_optimizing = true
+
+    # If true, macros defined in debug-utils.h are effective.
+    debug_utils_on = false
+
+    # If true, build into several shared libraries (and the executables dynamically
+    # load them during runtime); if false, build into standalone executables where
+    # libraries are statically linked.
+    is_component_build = false
+}

@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+# Copyright: see README and LICENSE under the project root directory.
+# Author: @Leedehai
+#
+# File: utils/buildtools/configs/toolchain/BUILD.gn
+# ---------------------------
+# Defines the tool chains. For simplicity, it is preferred to have just
+# one tool chain.
+
+toolchain("posix_toolchain") {
+    # TODO
+}

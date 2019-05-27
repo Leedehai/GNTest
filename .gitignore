@@ -1,0 +1,10 @@
+hello-test-directly-compiled
+out
+*.dSYM
+*.o
+*.d
+*.ninja
+.vscode
+*log*
+*.py[co]
+utils/buildtools/bin

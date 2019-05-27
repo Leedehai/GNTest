@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+# Copyright: see README and LICENSE under the project root directory.
+# Author: @Leedehai
+#
+# File: BUILDCONFIG.gn
+# ---------------------------
+# The global config file required by GN.
+#
+# All targets will get the corresponding config list by default. Targets can opt
+# out of a config by removing it from their local configs list.
+
+# host_(os|cpu): where GN will be running.
+# current_(os|cpu): where Ninja and the current toolchain will be running.
+# target_(os|cpu): where the built will be running.
+# NOTE the concepts of "host" and "target" differs from GCC's definition.
+# for (host|current|target)_os, their common acceptable values: "linux", "mac", "win"
+# for (host|current|target)_cpu, their common acceptable values: "x86", "x64"
+if (current_os == "") {
+  current_os = host_os
+}
+if (current_cpu == "") {
+  current_cpu = host_cpu
+}
+if (target_os == "") {
+  target_os = current_os
+}
+if (target_cpu == "") {
+  target_cpu = current_cpu
+}
+
+# Common configs to be adopted by the targets below.
+_binary_default_configs = [ "//utils/buildtools/configs:binary_defaults" ]
+
+# Apply the default config list above, as well as custom additional defaults. Of
+# course, these defaults can be altered by each target block.
+set_defaults("executable") {
+  configs = _binary_default_configs
+  configs += [ "//utils/buildtools/configs:executable_ld_config" ]
+}
+set_defaults("shared_library") {
+  configs = _binary_default_configs
+}
+set_defaults("static_library") {
+  configs = _binary_default_configs
+}
+set_defaults("source_set") {
+  configs = _binary_default_configs
+}
+set_defaults("object") {
+  configs = _binary_default_configs
+}
+
+set_default_toolchain("//utils/buildtools/configs/toolchain:posix_toolchain")

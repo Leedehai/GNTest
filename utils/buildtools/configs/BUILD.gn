@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# Copyright: see README and LICENSE under the project root directory.
+# Author: @Leedehai
+#
+# File: BUILD.gn
+# ---------------------------
+# Basic config blocks.
+
+config("binary_defaults") {
+  # TODO
+}
+
+config("executable_ld_config") {
+  # TODO
+}
