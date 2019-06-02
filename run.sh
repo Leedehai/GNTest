@@ -11,15 +11,15 @@ else
 	echo "[Info] rm -rf out"
 	rm -rf out
 
-	printf "\033[32;1;m$ utils/buildtools/gn.py gen out/darwin\033[0;m\n"
-	utils/buildtools/gn.py gen out/darwin
+	printf "\033[32;1m$ utils/buildtools/gn.py gen out/darwin --root=. --dotfile=utils/buildtools/configs/.gn\033[0m\n"
+	utils/buildtools/gn.py gen out/darwin --root=. --dotfile=utils/buildtools/configs/.gn
 
 	if [ $? != 0 ]; then
 		exit 1
 	fi
 fi
 
-printf "\033[32;1;m$ utils/buildtools/ninja.py -C out/darwin -v # verbose \033[0;m\n"
+printf "\033[32;1m$ utils/buildtools/ninja.py -C out/darwin -v # verbose \033[0m\n"
 utils/buildtools/ninja.py -C out/darwin -v
 
 if [ $? != 0 ]; then
@@ -28,17 +28,17 @@ fi
 
 if [ -f out/darwin/hello ]; then
 	printf "\n"
-	printf "\033[33;1;m$ cd out/darwin && ./hello && cd ../.. # basic\033[0;m\n"
+	printf "\033[33;1m$ cd out/darwin && ./hello && cd ../.. # basic\033[0m\n"
 	cd out/darwin && ./hello && cd ../..
-	printf "\033[33;1;m$ cd out && darwin/hello && cd .. # correctly encode runtime lib path\033[0;m\n"
+	printf "\033[33;1m$ cd out && darwin/hello && cd .. # correctly encode runtime lib path\033[0m\n"
 	cd out && darwin/hello && cd ..
-	printf "\033[33;1;m$ ... # copy exe and runtime to out/darwin/another_path/deeper .. # relocatable\033[0;m\n"
+	printf "\033[33;1m$ ... # copy exe and runtime to out/darwin/another_path/deeper .. # relocatable\033[0m\n"
 	mkdir -p out/darwin/another_path/deeper
 	cp out/darwin/hello out/darwin/another_path/deeper && cp -r out/darwin/runtime out/darwin/another_path/deeper
 	out/darwin/another_path/deeper/hello
 fi
 
-printf "\033[33;1;m$ tree out/darwin # list directory as tree \033[0;m\n"
+printf "\033[33;1m$ tree out/darwin # list directory as tree \033[0m\n"
 tree out/darwin
 
 printf "\n[Info] To remove generated stuff: rm -rf out\n"
