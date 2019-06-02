@@ -14,6 +14,13 @@
 # The location of the build configuration file.
 buildconfig = "//utils/buildtools/configs/BUILDCONFIG.gn"
 
+# When searching for a BUILD.gn file, the file will first be looked for from
+# the project root. If it's not found, the secondary source root will be
+# checked (which should contain a parallel directory hierarchy).
+# This behavior is intended to be used when BUILD.gn files can't be put into
+# certain source directories for some reason.
+secondary_source = "//utils/buildtools/secondary"
+
 # These overrides take precedence over the default values specified in
 # declare_args() blocks, but can be overriden by:
 # 1. the args.gn file.
