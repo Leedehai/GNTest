@@ -17,7 +17,7 @@ If you do not want to download the binaries over the network, or the downloading
 ```sh
 # 1. create directory
 # assume your current directory is this directory.
-mkdir -p bin/linux &&  # for macOS: mkdir -p bin/darwin
+mkdir -p bin/linux  # for macOS: mkdir -p bin/darwin
 
 # 2. create symbolic links
 # assume your GN and Ninja binaries are at /usr/local/bin

@@ -1,0 +1,7 @@
+# Declare build args and their default values. Default values can be overriden by:
+# 1. default_args() in project's .gn file
+# 2. the args.gn file.
+# 3. the '--args' option (highest precedence)
+declare_args() {
+  is_release = false
+}

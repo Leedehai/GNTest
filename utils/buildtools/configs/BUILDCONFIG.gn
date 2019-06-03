@@ -35,13 +35,14 @@ is_mac   = host_os == "mac" && current_os == "mac" && target_os == "mac"
 # runtime resource directory (under {{root_out_dir}})
 runtime_dir = "runtime"
 
-# Declare build args and their default values. Default values can be overriden by:
-# 1. default_args() in project's .gn file
-# 2. the args.gn file.
-# 3. the '--args' option (highest precedence)
-declare_args() {
-  is_release = false
-}
+# # Declare build args and their default values. Default values can be overriden by:
+# # 1. default_args() in project's .gn file
+# # 2. the args.gn file.
+# # 3. the '--args' option (highest precedence)
+# declare_args() {
+#   is_release = false
+# }
+import("//utils/buildtools/configs/declare_args.gni")
 
 # Do not handle cross-compiling
 assert(current_os == host_os,   "cross-compiling not supported.")
