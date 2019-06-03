@@ -2,14 +2,6 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-# Declare build args and their default values. Default values can be overriden by:
-# 1. default_args() in project's .gn file
-# 2. the args.gn file.
-# 3. the '--args' option (highest precedence)
-declare_args() {
-  is_release = false
-}
-
 # To be used by BUILDCONFIG.gn
 config("compiler_defaults") {
     cflags = [
@@ -21,6 +13,10 @@ config("compiler_defaults") {
     if (is_release) {
       cflags += [
         "-DNDEBUG"
+      ]
+    } else {
+      cflags += [
+        "-g"
       ]
     }
     cflags_c = [
