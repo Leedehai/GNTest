@@ -23,7 +23,9 @@ config("compiler_defaults") {
       "-std=c11",
     ]
     cflags_cc = [
-      "-std=c++14"
+      "-std=c++14",
+      "-include",
+      "../../utils/debug-utils.h" # relative to build dir
     ]
     include_dirs = [ "//include" ]
 }
