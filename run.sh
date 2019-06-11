@@ -38,7 +38,7 @@ if [ -f out/darwin/hello ]; then
 	out/darwin/another_path/deeper/hello
 fi
 
-printf "\033[33;1m$ tree out/darwin # list directory as tree \033[0m\n"
-tree out/darwin
+printf "\033[33;1m$ tree -a out/darwin # list directory as tree\033[0m\n"
+tree -a out/darwin
 
 printf "\n[Info] To remove generated stuff: rm -rf out\n"
