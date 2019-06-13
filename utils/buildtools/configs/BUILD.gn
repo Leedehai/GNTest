@@ -27,6 +27,9 @@ config("compiler_defaults") {
       "-include",
       rebase_path("//utils/debug-utils.h", root_build_dir)
     ]
+    ldflags = [
+        "-pthread"
+    ]
     include_dirs = [ "//include" ]
 }
 

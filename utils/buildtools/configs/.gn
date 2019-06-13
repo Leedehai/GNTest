@@ -10,6 +10,8 @@
 #
 # What variables can be set in a .gn file:
 #   https://gn.googlesource.com/gn/+/master/docs/reference.md#other-help-topics-gn-file-variables
+# NOTE if this project is embedded in a another project, this file is not read
+#      when GN is building that project, effectvely ignoring all settings here.
 
 # The location of the build configuration file.
 buildconfig = "//utils/buildtools/configs/BUILDCONFIG.gn"

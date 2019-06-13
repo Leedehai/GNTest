@@ -5,6 +5,7 @@
 executable("hello") {
   sources = [
     "//lib/hello.cc",
+    "//lib/extra.cc"
   ]
 
   deps = [
