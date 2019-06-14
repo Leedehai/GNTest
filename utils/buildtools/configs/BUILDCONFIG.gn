@@ -35,6 +35,8 @@ is_mac   = host_os == "mac" && current_os == "mac" && target_os == "mac"
 # runtime resource directory (under {{root_out_dir}})
 runtime_dir = "runtime"
 
+import("//utils/buildtools/configs/graft.gni")
+
 # # Declare build args and their default values. Default values can be overriden by:
 # # 1. default_args() in project's .gn file
 # # 2. the args.gn file.

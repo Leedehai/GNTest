@@ -31,3 +31,8 @@ default_args = {
     # Default to debug builds for this project.
     is_release = false
 }
+
+# List of .gn/.gni files that have permission to call exec_script().
+exec_script_whitelist = [
+  "//utils/buildtools/configs/graft.gni"
+]
