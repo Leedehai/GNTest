@@ -3,5 +3,47 @@
 # 2. the args.gn file.
 # 3. the '--args' option (highest precedence)
 declare_args() {
+  # If true, use the release mode
   is_release = false
+
+  # This argument controls compiler optimization level '-O?'. Level 3 has the
+  # most aggressive optimization.
+  # Possibe values: 0, 1, 2, 3 for -O0, -O1, -O2, -O3 respectively (other
+  # choices are not handled: -Os, -Og, -Oz, -Ofast).
+  infra_build_optimize = 0
+
+  # If true, debug symbols are inserted into binaries (using compiler
+  # option '-g'), and assert() is enabled (using macro "NDEBUG").
+  # Possible values: true, false
+  infra_enable_debug = true
+
+  # If true, //utils/debug-utils.h is included by using compiler
+  # option '-include' (for include). Note that this header is for temporary
+  # usage during development only, to facilitate debugging.
+  # Possible values: true, false
+  infra_enable_debug_utils = true
+
+  # Compiler's runtime sanitizers for C/C++: undefined behavior sanitizer
+  # (UBSan) and address sanitizer (ASan). Note that if this arg is true,
+  # debug symbols are to be inserted into binaries by passing compiler
+  # option '-g', regardless of other build arguments.
+  # UBSan detects C/C++ code's common undefined behavior at runtime; ASan
+  # detects a number of address-related issues at runtime, such as memory
+  # leaks, double-free, use-after-free, out-of-bounds memory accesses. Both
+  # will together slow down the program 2-3x and will print runtime errors
+  # if violations arise, without crashing the program unless neccessary.
+  # There are other sanitizers as well, but I do not include them at the
+  # moment because they either cannot be enabled together with the sanitizers
+  # above (like ASan is againt MSan: memory sanitizer), or is unnecessary for
+  # this project (like TSan: thread sanitizer).
+  # As an exception, GoogleTest will not be built with UBSan due to weird
+  # runtime crashes.
+  # Possible values: true, false.
+  infra_enable_sanitizers = true
+
+  # If true, do not warn about unused variables, by passing options
+  # "-Wno-unused-variable", "-Wno-unused-but-set-variable", and
+  # "-Wno-unused-value".
+  # Possible values: true, false
+  infra_warn_unused_vars = false
 }

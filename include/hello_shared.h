@@ -5,6 +5,9 @@
 #ifndef TOOLS_GN_EXAMPLE_HELLO_SHARED_H_
 #define TOOLS_GN_EXAMPLE_HELLO_SHARED_H_
 
+#include "indirectly_include.h"
+#include <string>
+
 #if defined(WIN32)
 
 #if defined(HELLO_SHARED_IMPLEMENTATION)
