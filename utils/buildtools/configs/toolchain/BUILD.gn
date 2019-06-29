@@ -3,10 +3,29 @@
 # found in the LICENSE file.
 
 toolchain("clang") {
+  # compiling Assembly (*.S, *.s, *.asm): source => object
+  tool("asm") {
+    # Depfile configs
+    depfile = "{{output}}.d"
+    depsformat = "gcc"  # "gcc" or "msvc"
+
+    # Command
+    command = "clang -MMD -MF $depfile {{defines}} {{include_dirs}} {{asmflags}} -c {{source}} -o {{output}}"
+
+    # Outputs
+    outputs = [
+      "{{source_out_dir}}/{{source_name_part}}.o",
+    ]
+
+    # Used by Ninja's status message
+    description = "ASM {{output}}"
+  }
+
+  # compiling C (*.c): source => object
   tool("cc") {
     # Depfile configs
     depfile = "{{output}}.d"
-    depsformat = "gcc" # "gcc" or "msvc"
+    depsformat = "gcc"  # "gcc" or "msvc"
 
     # Command
     command = "clang -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
@@ -20,13 +39,15 @@ toolchain("clang") {
     description = "CC {{output}}"
   }
 
+  # compiling C++ (*.cc, *.cpp, *.cxx): source => object
   tool("cxx") {
     # Depfile configs
     depfile = "{{output}}.d"
-    depsformat = "gcc" # "gcc" or "msvc"
+    depsformat = "gcc"  # "gcc" or "msvc"
 
     # Command
     command = "clang++ -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
+
     # Outputs
     outputs = [
       "{{source_out_dir}}/{{source_name_part}}.o",
@@ -36,6 +57,7 @@ toolchain("clang") {
     description = "CXX {{output}}"
   }
 
+  # building archive (static library): objects => static library
   tool("alink") {
     # Command
     command = "rm -f {{output}} && ar rcs {{output}} {{inputs}}"
@@ -47,14 +69,18 @@ toolchain("clang") {
 
     # Targets can opt-out of the output prefix by setting: output_prefix_override = true
     output_prefix = "lib"
+
     # Default value of {{output_extension}} unless a target manually overrides it.
     default_output_extension = ".a"
+
     # Use this for {{output_dir}} expansions unless a target manually overrides it
     default_output_dir = "{{root_out_dir}}"
+
     # Used by Ninja's status message
     description = "AR {{target_output_name}}{{output_extension}}"
   }
 
+  # building shared library: objects => shared library
   tool("solink") {
     # Variable definitions
     soname = "{{target_output_name}}{{output_extension}}"  # e.g. "libfoo.so".
@@ -76,20 +102,25 @@ toolchain("clang") {
 
     # Targets can opt-out of the output prefix by setting: output_prefix_override = true
     output_prefix = "lib"
+
     # Default value of {{output_extension}} unless a target manually overrides it.
     default_output_extension = ".so"
+
     # Default value of {{output_dir}} unless a target manually overrides it
     default_output_dir = "{{root_out_dir}}/$runtime_dir"
+
     # Used by Ninja's status message
     description = "SOLINK $soname"
   }
 
+  # linking: objects, libraries => executable
   tool("link") {
     # Variable definitions
     outfile = "{{target_output_name}}{{output_extension}}"
+
     # Command
     command = "clang++ {{ldflags}} -o $outfile {{inputs}} {{solibs}} {{libs}}"
-    
+
     # Outputs
     outputs = [
       outfile,
@@ -97,19 +128,29 @@ toolchain("clang") {
 
     # Default value of {{output_extension}} unless a target manually overrides it.
     default_output_extension = ""
+
     # Default value of {{output_dir}} unless a target manually overrides it
     default_output_dir = "{{root_out_dir}}"
+
     # Used by Ninja's status message
     description = "LINK $outfile"
   }
 
+  # stamping to record time
   tool("stamp") {
+    # Command
     command = "touch {{output}}"
+
+    # Used by Ninja's status message
     description = "STAMP {{output}}"
   }
 
+  # copying
   tool("copy") {
+    # Command
     command = "cp -af {{source}} {{output}}"
+
+    # Used by Ninja's status message
     description = "COPY {{source}} {{output}}"
   }
 }
