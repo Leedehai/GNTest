@@ -25,7 +25,7 @@ BIN_PATH = os.path.join(BIN_DIR, "ninja")
 # %f: finished_tasks_count %t: total_tasks_count
 # %e: elapsed_time (seconds in floating number)
 ENVIRON = dict(os.environ)
-ENVIRON.update({ "NINJA_STATUS": "[%f/%t:%e] "})
+ENVIRON.update({ "NINJA_STATUS": "[%f/%t:%es] "})
 def execute(program, args):
     # Popen.wait() returns the child's return code
     return subprocess.Popen([ program ] + args, env=ENVIRON).wait()
