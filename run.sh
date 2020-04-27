@@ -11,8 +11,8 @@ else
 	echo "[Info] rm -rf out"
 	rm -rf out
 
-	printf "\033[32;1m$ utils/buildtools/gn.py gen out/darwin --root=. --dotfile=utils/buildtools/configs/.gn\033[0m\n"
-	utils/buildtools/gn.py gen out/darwin --root=. --dotfile=utils/buildtools/configs/.gn
+	printf "\033[32;1m$ utils/buildtools/gn.py gen --check out/darwin --root=. --dotfile=utils/buildtools/configs/.gn\033[0m\n"
+	utils/buildtools/gn.py gen --check out/darwin --root=. --dotfile=utils/buildtools/configs/.gn
 
 	if [ $? != 0 ]; then
 		exit 1

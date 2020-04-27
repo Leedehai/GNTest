@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 #include "hello_shared.h"
+#include "not_in_build_gn.h"
 
 const char* GetSharedText() {
   return "world";
